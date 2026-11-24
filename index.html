@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Analyzer</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#00b894">
+<style>
+body{font-family:Arial; background:#EEF2FF; padding:20px; text-align:center}
+.box{background:white; padding:20px; border-radius:15px; max-width:500px; margin:auto}
+input{width:90%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ddd}
+button{background:#00b894; color:white; padding:12px 20px; border:none; border-radius:8px; font-size:16px; width:95%}
+#result{margin-top:15px; text-align:left; background:#F9FAFB; padding:15px; border-radius:10px}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>📄 Resume Analyzer</h2>
+<p>Assalam-o-Alaikum! Apni skills likho:</p>
+<p><b>Tumhari Skills:</b></p>
+<input id="mySkills" placeholder="Python, MS Word, Communication">
+<p><b>Job Wali Skills:</b></p>
+<input id="jobSkills" placeholder="Python, Communication, Excel">
+<button onclick="check()">Mera Score Batao</button>
+<div id="result">Yahan jawab aega...</div>
+<p style="font-size:12px; color:gray">Made by Iman Fatima</p>
+</div>
+<script>
+function check(){
+ let mine = document.getElementById('mySkills').value.toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
+  let job = document.getElementById('jobSkills').value.toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
+   let matched = job.filter(s=> mine.includes(s));
+    let missing = job.filter(s=> !mine.includes(s));
+     let score = job.length ? Math.round((matched.length/job.length)*100) : 0;
+      document.getElementById('result').innerHTML = `<b>Score: ${score}%</b><br>✅ Matched: ${matched.join(', ') || 'Koi nahi'}<br>❌ Missing: ${missing.join(', ') || 'Koi nahi - Perfect!'}`;
+      }
+      if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js'); }
+      </script>
+      </body>
+      </html>
